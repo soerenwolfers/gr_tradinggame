@@ -23,7 +23,7 @@ class Game:
         self.team_scores = {team: [0] for team in self.team_names}
         self.team_blocked_until = {team: -1 for team in self.team_names}
         self.last_number = None
-        self.last_cooldown = 3
+        self.last_cooldown = self.cooldown
         self.number_display = widgets.HTML(layout=dict(width='80%'))
         self.team_buttons = {
             team: widgets.ToggleButton(description=team, value=False, tooltip=team,layout=dict(width='50%'))
@@ -67,7 +67,6 @@ class Game:
             """
         
             for team, btn in self.team_buttons.items():
-                is_blocked = self.current_round <= self.team_blocked_until[team]
                 blocked = self.team_blocked_until[team] - self.current_round
                 is_blocked = blocked >= 0
                 btn.disabled = is_blocked
