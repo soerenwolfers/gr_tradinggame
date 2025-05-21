@@ -1,4 +1,3 @@
-# pip install flask pyngrok flask-ngrok plotly==5.10
 import uuid
 from flask import Flask, request, jsonify
 from functools import wraps
