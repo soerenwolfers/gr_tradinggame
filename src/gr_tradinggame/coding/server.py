@@ -1,5 +1,4 @@
 # pip install flask pyngrok flask-ngrok plotly==5.10
-
 import uuid
 from flask import Flask, request, jsonify
 from functools import wraps
@@ -8,8 +7,8 @@ import base64
 from collections import defaultdict
 import threading
 
-from blackbox import generate_function
-from util import get_url
+from .blackbox import generate_function
+from .util import get_url
 
 
 class GameServer:

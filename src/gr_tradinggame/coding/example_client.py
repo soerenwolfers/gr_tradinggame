@@ -1,4 +1,4 @@
-from .client import Client
+from gr_tradinggame.coding.client import Client
 
 server = '52bc-34-16-234-11'
 
