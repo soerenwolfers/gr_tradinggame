@@ -2,10 +2,12 @@ import base64
 import datetime
 import random
 import traceback
-
-from blackbox import Plackbox, Blackbox
+import requests
+from requests.auth import HTTPBasicAuth
 import cloudpickle as pickle
 import timeit
+
+from .blackbox import Plackbox, Blackbox
 
 
 class Client:
@@ -105,8 +107,6 @@ class Client:
                 print("All tests passed. You're ready to call `submit`\n")
 
     def fancy_submit(self, output):
-        import requests
-        from requests.auth import HTTPBasicAuth 
         if isinstance(output, str):
           submission = 's' + output
         else:

@@ -1,5 +1,3 @@
-# requires pip install plotly==5.10 on colab
-
 import numpy
 import ipywidgets as widgets
 from IPython.display import display, clear_output

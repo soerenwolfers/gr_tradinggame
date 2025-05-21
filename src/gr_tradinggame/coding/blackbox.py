@@ -1,16 +1,15 @@
 from contextlib import redirect_stderr, redirect_stdout
 import cloudpickle as pickle
-import io
 import base64
+from IPython.terminal.interactiveshell import TerminalInteractiveShell
+import io
 
 
 class Blackbox:
     def __init__(self, source, name='play'):
-        import io
         self.name = name
         self.stdout = io.StringIO()
         self.stderr = io.StringIO()
-        from IPython.terminal.interactiveshell import TerminalInteractiveShell
         self.shell = TerminalInteractiveShell()
         with redirect_stderr(self.stderr), redirect_stdout(self.stdout):
             out = self.shell.run_cell(source)

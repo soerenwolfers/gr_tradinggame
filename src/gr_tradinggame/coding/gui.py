@@ -7,7 +7,7 @@ from IPython.display import clear_output, display
 import time
 import json
 
-from blackbox import generate_function
+from .blackbox import generate_function
 
 
 class CodingGame:

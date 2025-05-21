@@ -1,4 +1,4 @@
-from coding.client import Client
+from .client import Client
 
 server = '52bc-34-16-234-11'
 
