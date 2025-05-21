@@ -21,7 +21,7 @@ def foo(reward: float, lockout: int, t: int, T: int, your_score: float, other_sc
 client.submit(foo)
 
 
-sub = Client('Team B', threshold=0.1, server=server)
+client = Client('Team B', threshold=0.1, server=server)
 
 def foo(reward: float, lockout: int, t: int, T: int, your_score: float, other_scores: list[float]):
     #z = 1 / lockout
