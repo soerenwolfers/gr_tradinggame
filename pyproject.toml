@@ -1,0 +1,14 @@
+[project]
+name = "gr_tradinggame"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Soeren Wolfers", email = "soeren.wolfers@gresearch.com" }
+]
+requires-python = ">=3.11"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
