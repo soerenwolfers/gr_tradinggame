@@ -1,4 +1,4 @@
-from .manual_game import ManualGame
+from gr_tradinggame.manual import ManualGame
 
 game = ManualGame(
     team_names=[
