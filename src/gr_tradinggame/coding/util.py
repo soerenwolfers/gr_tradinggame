@@ -1,7 +1,5 @@
 import time
-import requests
-import os
-import signal
+from pyngrok import ngrok
 import subprocess
 import requests
 
@@ -9,8 +7,11 @@ import requests
 def get_url(token, force_restart):
     def kill_and_restart():
         subprocess.run(["pkill", "ngrok"])
-        # ngrok.set_auth_token(token)
-        # ngrok_connection = ngrok.connect(5000)
+        ngrok.set_auth_token(token)
+        try:
+            ngrok.connect(5000)
+        except Exception:
+            pass
         subprocess.Popen(['ngrok', 'http', '5000', '--authtoken', token], start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         time.sleep(5)
 
