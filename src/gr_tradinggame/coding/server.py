@@ -66,7 +66,3 @@ class GameServer:
         server_id = get_url(self.token, force_restart)
         print('Serving', server_id)
         self.app.run(port=5000)
-        
-          
-server = GameServer('2xKdM2iD98QgKJz9Pw8DQh9DalR_4EEYGbDiMWSdQR5os7Qa2')
-server.run()
