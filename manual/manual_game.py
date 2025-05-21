@@ -1,15 +1,13 @@
 # requires pip install plotly==5.10 on colab
 
-import random
 import numpy
 import ipywidgets as widgets
 from IPython.display import display, clear_output
 import plotly.graph_objs as go
 import pandas as pd
 
-import datetime
 
-class Game:
+class ManualGame:
     def __init__(self, team_names, max_rounds, cooldown, width=1000):
         self.team_names = team_names
         self.max_rounds = max_rounds
@@ -133,4 +131,3 @@ class Game:
     def _ipython_display_(self):
         display(self.vertical_box)
 
-game = Game(team_names = ['Watford', 'Manchester', 'Cambridge', 'Edinburgh'], max_rounds = 3, cooldown=3, width=500)
