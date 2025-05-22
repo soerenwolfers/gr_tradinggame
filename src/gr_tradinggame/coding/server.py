@@ -26,7 +26,10 @@ class GameServer:
                     self.submissions[team][time] = team_submission
         except FileNotFoundError:
             pass
-                
+        else:
+            print("Loaded existing submissions:")
+            print(json.dumps(self.submissions, indent=4))
+
         self.app = Flask(self.name)
 
         def require_auth(f):
@@ -50,13 +53,19 @@ class GameServer:
         @require_auth
         def receive():
             data = request.get_json()
-            print("Received data:", data)
+            print("Submission received:", data)
             generate_function(data['submission'])
             with self.submission_lock:
                 self.submissions[data['team']][data['time']] = data['submission']
                 with open("submissions.json", "w") as f:
                     json.dump(dict(self.submissions), f, indent=4)
-                print(json.dumps(self.submissions, indent=4))
+            print(json.dumps(
+                {
+                    team_name: max(team_submissions.items(), key=lambda x: x[0])[0]
+                    for (team_name, team_submissions) in self.submissions.items()
+                },
+                indent=4
+            ))
             return jsonify({"status": "success"})
         self.token = token
 

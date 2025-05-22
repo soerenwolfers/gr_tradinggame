@@ -10,8 +10,8 @@ class Blackbox:
         self.name = name
         self.stdout = io.StringIO()
         self.stderr = io.StringIO()
-        self.shell = TerminalInteractiveShell()
         with redirect_stderr(self.stderr), redirect_stdout(self.stdout):
+            self.shell = TerminalInteractiveShell()
             out = self.shell.run_cell(source)
             if out.error_before_exec is not None:
                 raise out.error_before_exec
@@ -47,4 +47,4 @@ def generate_function(data):
     if data[0] == 'p':
         return pickle.loads(base64.b64decode(data[1:]))
     else:
-        return Blackbox(data[1:])
+        return Blackbox(base64.b64decode(data[1:]).decode('utf-8'))

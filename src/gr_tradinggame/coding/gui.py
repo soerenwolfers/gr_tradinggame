@@ -11,16 +11,17 @@ from .blackbox import generate_function
 
 
 class CodingGame:
-    def __init__(self, max_rounds, cooldown, frequency=0.3, width=1000, duration=10, functions=None, submissions=None):
+    def __init__(self, rounds, cooldown, plot_frequency=0.3, plot_width=1000, length_in_seconds=10, eliminate_slow_teams=False, functions=None, submissions=None):
         if functions is None and submissions is None:
             with open("submissions.json", "r") as f:
                 submissions = json.load(f)
         self.candidates = functions if functions is not None else CodingGame.clean(submissions)
-        self.frequency = frequency
-        self.length = duration
-        self.width = width
+        self.plot_frequency = plot_frequency
+        self.eliminate = eliminate_slow_teams
+        self.length = length_in_seconds
+        self.plot_width = plot_width
         self.last_cooldown = cooldown
-        self.max_rounds = max_rounds
+        self.max_rounds = rounds
         self.init_play()
         self.initialize_ui()
 
@@ -68,7 +69,7 @@ class CodingGame:
                 mode='lines',
                 name=team,
             ))
-        fig.update_layout(showlegend=True, xaxis_title='Round', yaxis_title='Score', xaxis_range=[0, self.max_rounds], width=self.width)
+        fig.update_layout(showlegend=True, xaxis_title='Round', yaxis_title='Score', xaxis_range=[0, self.max_rounds], width=self.plot_width)
         with self.plot_output:
             clear_output(wait=True)
             display(fig)
@@ -87,7 +88,7 @@ class CodingGame:
                     tic_team = timeit.default_timer()
                     took_action = btn(*args) and self.current_round > self.team_blocked_until[team]
                     toc_team = timeit.default_timer()
-                    if toc_team - tic_team > self.length / self.max_rounds / 10:
+                    if self.eliminate and toc_team - tic_team > self.length / self.max_rounds / len(self.candidates):
                         eliminate.append(team)
                     score = self.last_number if took_action else 0
                     self.team_scores[team].append(self.team_scores[team][-1] + score)
@@ -99,7 +100,7 @@ class CodingGame:
                 target = self.start + self.current_round / self.max_rounds * self.length
                 if toc < target:
                     time.sleep(target - toc)
-                if toc > self.last_update + self.frequency:
+                if toc > self.last_update + self.plot_frequency:
                     self.last_update = toc
                     self.update_plot()
 
