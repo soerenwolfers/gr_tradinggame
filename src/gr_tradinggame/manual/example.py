@@ -7,7 +7,7 @@ game = ManualGame(
         'Cambridge',
         'Edinburgh'
     ],
-    max_rounds=3,
+    max_rounds=5,
     cooldown=3,
-    width=500
+    width=1000
 )
