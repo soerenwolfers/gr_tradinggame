@@ -13,7 +13,7 @@ dependencies = [
     "flask-ngrok==0.0.25",
     "ipython==7.34.0",
     "ipywidgets==7.7.1", # colab doesn't work with ipywidgets 8
-    "numpy==2.0.2",
+    "numpy>=2.0.2",
     "pandas==2.2.2",
     "plotly==5.10.0",
     "pyngrok==7.2.8",
