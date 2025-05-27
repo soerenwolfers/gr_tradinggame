@@ -1,6 +1,6 @@
 # Trading game for recruitment events. 
 
-## Usage
+## Installation
 
 `pip install gr-tradinggame`
 
@@ -13,4 +13,10 @@
 
 1. Run the code in `coding/example_server.py`. 
 2. The output will contain `Serving <id>`. Give that `id` to the teams and have them test and submit their solutions with that `id` as in `coding/example_client.py`. 
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yourusername/yourrepo/blob/main/example.ipynb)
+
 3. Run the code in `coding/example_gui.py` to see who wins.
+
+
+
