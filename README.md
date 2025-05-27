@@ -18,7 +18,7 @@
 
 2. The output will contain `Serving <id>`. Give that `id` to the teams and have them test and submit their solutions with that `id` as in `coding/example_client.py`. [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/soerenwolfers/gr_tradinggame/blob/main/notebooks/example_clients.ipynb)
 
-3. Run the code in `coding/example_gui.py` to see who wins. [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/soerenwolfers/gr_tradinggame/blob/main/notebooks/example_gui.ipynb)
+3. Run the remaining cells in your server notebook to see who wins.
 
 
 
