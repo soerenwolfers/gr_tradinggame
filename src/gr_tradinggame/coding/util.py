@@ -8,6 +8,7 @@ import requests
 def get_url(token, force_restart):
     def kill_and_restart():
         subprocess.run(["pkill", "ngrok"])
+        pyngrok.install_ngrok()
         subprocess.Popen([pyngrok.conf.get_default().ngrok_path, 'http', '5000', '--authtoken', token], start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         time.sleep(5)
 
