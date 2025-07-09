@@ -11,7 +11,7 @@ from .blackbox import generate_function
 
 
 class CodingGame:
-    def __init__(self, rounds, cooldown, plot_frequency=0.3, plot_width=1000, length_in_seconds=10, eliminate_slow_teams=False, functions=None, submissions=None):
+    def __init__(self, rounds, cooldown, plot_frequency=0.3, plot_width=1000, length_in_seconds=10, eliminate_slow_teams=False, functions=None, submissions=None,random_draw_function=None):
         if functions is None and submissions is None:
             with open("submissions.json", "r") as f:
                 submissions = json.load(f)
@@ -22,6 +22,7 @@ class CodingGame:
         self.plot_width = plot_width
         self.last_cooldown = cooldown
         self.max_rounds = rounds
+        self.random_draw_function=random_draw_function
         self.init_play()
         self.initialize_ui()
 
@@ -76,7 +77,7 @@ class CodingGame:
 
     def start_new_round(self):
         self.current_round += 1
-        self.last_number = self.gen.pareto(3)
+        self.last_number = self.random_draw_function()
 
     def loop(self):
         with self.output:
@@ -118,7 +119,9 @@ class CodingGame:
             display(df)
 
     def init_play(self):
-        self.gen = np.random.default_rng(seed=None)
+        if(self.random_draw_function is None):
+            random = np.random.default_rng(seed=None)
+            self.random_draw_function= lambda: random.pareto(3)
         self.last_update = -2 ** 31
         self.team_scores = {team: [0] for team in self.candidates}
         self.team_blocked_until = {team: -1 for team in self.candidates}
