@@ -11,7 +11,6 @@ class ManualGame:
         self.max_rounds = max_rounds
         self.cooldown = cooldown
         self.random_draw_function = random_draw_function
-        
         if self.random_draw_function is None:
             random = np.random.default_rng(seed=None)
             self.random_draw_function= lambda: random.pareto(3)
