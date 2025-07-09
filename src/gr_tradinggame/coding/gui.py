@@ -11,11 +11,14 @@ from .blackbox import generate_function
 
 
 class CodingGame:
-    def __init__(self, rounds, cooldown, plot_frequency=0.3, plot_width=1000, length_in_seconds=10, eliminate_slow_teams=False, functions=None, submissions=None,random_draw_function=None,must_be_only_team=False):
+    def __init__(self, rounds, cooldown, plot_frequency=0.3, plot_width=1000, length_in_seconds=10, eliminate_slow_teams=False, functions=None, submissions=None,additional_functions=None,random_draw_function=None,must_be_only_team=False):
         if functions is None and submissions is None:
             with open("submissions.json", "r") as f:
                 submissions = json.load(f)
+        if additional_functions is None:
+            additional_functions = {}
         self.candidates = functions if functions is not None else CodingGame.clean(submissions)
+        self.candidates = {**self.candidates, **additional_functions}
         self.plot_frequency = plot_frequency
         self.eliminate = eliminate_slow_teams
         self.length = length_in_seconds
