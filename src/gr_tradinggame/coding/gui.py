@@ -11,7 +11,7 @@ from .blackbox import generate_function
 
 
 class CodingGame:
-    def __init__(self, rounds, cooldown, plot_frequency=0.3, plot_width=1000, length_in_seconds=10, eliminate_slow_teams=False, functions=None, submissions=None,random_draw_function=None):
+    def __init__(self, rounds, cooldown, plot_frequency=0.3, plot_width=1000, length_in_seconds=10, eliminate_slow_teams=False, functions=None, submissions=None,random_draw_function=None,must_be_only_team=False):
         if functions is None and submissions is None:
             with open("submissions.json", "r") as f:
                 submissions = json.load(f)
@@ -23,6 +23,7 @@ class CodingGame:
         self.last_cooldown = cooldown
         self.max_rounds = rounds
         self.random_draw_function=random_draw_function
+        self.must_be_only_team = must_be_only_team
         self.init_play()
         self.initialize_ui()
 
@@ -84,6 +85,7 @@ class CodingGame:
             while self.current_round < self.max_rounds:
                 self.start_new_round()
                 eliminate = []
+                last_team_to_score=None
                 for team, btn in self.candidates.items():
                     args = (self.last_number, self.last_cooldown, self.current_round, self.max_rounds, self.team_scores[team][-1], [y[-1] for (x, y) in self.team_scores.items() if x != team])
                     tic_team = timeit.default_timer()
@@ -93,8 +95,12 @@ class CodingGame:
                         eliminate.append(team)
                     score = self.last_number if took_action else 0
                     self.team_scores[team].append(self.team_scores[team][-1] + score)
+                    if must_be_only_team and took_action and last_team_to_score is not None:
+                        self.team_scores[team][-1] = self.team_scores[team][-2]
+                        self.team_scores[last_team_to_score][-1] = self.team_scores[last_team_to_score][-2]
                     if took_action:
                         self.team_blocked_until[team] = self.current_round + self.last_cooldown
+                        last_team_to_score=team
                 for x in eliminate:
                     del self.candidates[x]
                 toc = timeit.default_timer()
