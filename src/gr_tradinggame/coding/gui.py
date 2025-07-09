@@ -95,7 +95,7 @@ class CodingGame:
                         eliminate.append(team)
                     score = self.last_number if took_action else 0
                     self.team_scores[team].append(self.team_scores[team][-1] + score)
-                    if must_be_only_team and took_action and last_team_to_score is not None:
+                    if self.must_be_only_team and took_action and last_team_to_score is not None:
                         self.team_scores[team][-1] = self.team_scores[team][-2]
                         self.team_scores[last_team_to_score][-1] = self.team_scores[last_team_to_score][-2]
                     if took_action:
