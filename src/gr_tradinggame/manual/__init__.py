@@ -6,11 +6,15 @@ import pandas as pd
 
 
 class ManualGame:
-    def __init__(self, team_names, max_rounds, cooldown, width=1000):
+    def __init__(self, team_names, max_rounds, cooldown, width=1000,random_draw_function=None):
         self.team_names = team_names
         self.max_rounds = max_rounds
         self.cooldown = cooldown
-        self.gen = numpy.random.default_rng(seed=None)
+        self.random_draw_function = random_draw_function
+        
+        if(self.random_draw_function is None):
+            random = np.random.default_rng(seed=None)
+            self.random_draw_function= lambda: random.pareto(3)
         self.width = width
         self.initialize_ui()
 
@@ -53,7 +57,7 @@ class ManualGame:
 
         def start_new_round():
             self.current_round += 1
-            self.last_number = self.gen.pareto(3)
+            self.last_number = self.random_draw_function()
 
             self.number_display.value = f"""
                 <div style='text-align:center; padding: 10px;'>
