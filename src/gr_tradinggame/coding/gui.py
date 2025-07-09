@@ -125,7 +125,7 @@ class CodingGame:
             display(df)
 
     def init_play(self):
-        if(self.random_draw_function is None):
+        if self.random_draw_function is None:
             random = np.random.default_rng(seed=None)
             self.random_draw_function= lambda: random.pareto(3)
         self.last_update = -2 ** 31
