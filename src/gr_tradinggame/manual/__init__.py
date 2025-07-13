@@ -6,14 +6,14 @@ import pandas as pd
 
 
 class ManualGame:
-    def __init__(self, team_names, max_rounds, cooldown, width=1000,random_draw_function=None):
+    def __init__(self, team_names, max_rounds, lockout, width=1000, random_draw_function=None):
         self.team_names = team_names
         self.max_rounds = max_rounds
-        self.cooldown = cooldown
+        self.lockout = lockout
         self.random_draw_function = random_draw_function
         if self.random_draw_function is None:
             random = numpy.random.default_rng(seed=None)
-            self.random_draw_function= lambda: random.pareto(3)
+            self.random_draw_function = lambda: random.pareto(3)
         self.width = width
         self.initialize_ui()
 
@@ -22,7 +22,7 @@ class ManualGame:
         self.team_scores = {team: [0] for team in self.team_names}
         self.team_blocked_until = {team: -1 for team in self.team_names}
         self.last_number = None
-        self.last_cooldown = self.cooldown
+        self.last_lockout = self.lockout
         self.number_display = widgets.HTML(layout=dict(width='80%'))
         self.team_buttons = {
             team: widgets.ToggleButton(description=team, value=False, tooltip=team, layout=dict(width='50%'))
@@ -60,7 +60,7 @@ class ManualGame:
 
             self.number_display.value = f"""
                 <div style='text-align:center; padding: 10px;'>
-                    <h1 style='margin-bottom: 0;'>Round {self.current_round} / {self.max_rounds} <br> Cooldown: {self.last_cooldown}</h1>
+                    <h1 style='margin-bottom: 0;'>Round {self.current_round} / {self.max_rounds} <br> Lockout: {self.last_lockout}</h1>
                     <h2 style='color:darkred; font-size: 48px; margin-top: 10px;'>Reward: {self.last_number:.2f}</h2>
                 </div>
             """
@@ -80,7 +80,7 @@ class ManualGame:
                     score = self.last_number if took_action else 0
                     self.team_scores[team].append(self.team_scores[team][-1] + score)
                     if took_action:
-                        self.team_blocked_until[team] = self.current_round + self.last_cooldown
+                        self.team_blocked_until[team] = self.current_round + self.last_lockout
                 update_plot()
             if self.current_round < self.max_rounds:
                 start_new_round()

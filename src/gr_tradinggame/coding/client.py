@@ -19,10 +19,10 @@ class Client:
             self.url = None
         self.timeout = timeout
 
-    def test(self, source_or_function, verbose=False, strict=False, allow_state=False):
+    def test(self, source_or_function, verbose=False, strict=False, allow_state=True):
         return self._submit(source_or_function, strict=strict, submit=False, allow_state=allow_state, verbose=verbose)
 
-    def submit(self, source_or_function, allow_state=False):
+    def submit(self, source_or_function, allow_state=True):
         return self._submit(source_or_function, strict=False, submit=True, allow_state=allow_state, verbose=False)
         
     def _submit(self, source_or_function, strict, submit, allow_state, verbose):
@@ -74,11 +74,11 @@ class Client:
         for j in range(1_000):
             T = int(1_000_000 * random.random())
             t = int(random.random() * T)
-            cooldown = int(10 * random.random())
+            lockout = int(10 * random.random())
             reward = 100 * random.random()
             score = reward * T * random.random()
             scores = [reward * T * random.random() for _ in range(10)]
-            args = (reward, cooldown, t, T,  score, scores)
+            args = (reward, lockout, t, T,  score, scores)
             try:
                 a = foo(*args)
             except Exception:
