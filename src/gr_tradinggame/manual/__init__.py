@@ -6,7 +6,7 @@ import pandas as pd
 
 
 class ManualGame:
-    def __init__(self, team_names, max_rounds, lockout, width=1000, random_draw_function=None):
+    def __init__(self, team_names, max_rounds=30, lockout=3, width=1000, random_draw_function=None):
         self.team_names = team_names
         self.max_rounds = max_rounds
         self.lockout = lockout
