@@ -11,9 +11,11 @@ class ManualGame:
         self.max_rounds = max_rounds
         self.lockout = lockout
         self.random_draw_function = random_draw_function
-        if self.random_draw_function is None:
-            random = numpy.random.default_rng(seed=None)
-            self.random_draw_function = lambda: random.pareto(3)
+        if isinstance(self.random_draw_function, str):
+            if self.random_draw_function.lower().strip() == 'a':
+                self.random_draw_function = lambda: numpy.random.exponential(10)
+            elif self.random_draw_function.lower().strip() == 'b':
+                self.random_draw_function = lambda: numpy.random.normal(-0.2, 10)
         self.width = width
         self.initialize_ui()
 
