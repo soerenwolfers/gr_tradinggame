@@ -15,7 +15,7 @@ class ManualGame:
             if self.random_draw_function.lower().strip() == 'a':
                 self.random_draw_function = lambda: numpy.random.exponential(10)
             elif self.random_draw_function.lower().strip() == 'b':
-                self.random_draw_function = lambda: numpy.random.normal(-0.2, 10)
+                self.random_draw_function = lambda: numpy.random.normal(-0.2, 1)
         self.width = width
         self.initialize_ui()
 

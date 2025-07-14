@@ -34,7 +34,7 @@ class CodingGame:
             if self.random_draw_function.lower().strip() == 'a':
                 self.random_draw_function = lambda: np.random.exponential(10)
             elif self.random_draw_function.lower().strip() == 'b':
-                self.random_draw_function = lambda: np.random.normal(-0.2, 10)
+                self.random_draw_function = lambda: np.random.normal(-0.2, 1)
         self.init_play()
         self.initialize_ui()
 
