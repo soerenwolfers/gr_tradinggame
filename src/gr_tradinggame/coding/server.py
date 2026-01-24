@@ -11,7 +11,7 @@ from .util import get_url
 
 
 class GameServer:
-    def __init__(self, token):
+    def __init__(self):
         self.name = str(uuid.uuid4())
         self.submission_lock = threading.Lock()
         self.USERNAME = "colabuser"
@@ -67,9 +67,8 @@ class GameServer:
                 indent=4
             ))
             return jsonify({"status": "success"})
-        self.token = token
 
     def run(self, force_restart=False):
-        server_id = get_url(self.token, force_restart)
+        server_id = get_url(force_restart)
         print('Serving', server_id)
         self.app.run(port=5000)
