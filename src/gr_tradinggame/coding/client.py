@@ -14,7 +14,7 @@ class Client:
     def __init__(self, team_name, server=None, timeout=0.1):
         self.team_name = team_name
         if server:
-            self.url = "https://" + server + ".ngrok-free.dev"
+            self.url = "https://" + server
         else:
             self.url = None
         self.timeout = timeout
