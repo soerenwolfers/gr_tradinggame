@@ -16,7 +16,7 @@ def get_url(token, force_restart):
         response = requests.get("http://localhost:4040/api/tunnels")
         tunnels = response.json()['tunnels']
         public_url = tunnels[0]['public_url']
-        return public_url.split('//')[1].split('.ngrok-free.app')[0]
+        return public_url.split('//')[1].split('.ngrok-free.dev')[0]
 
     if force_restart:
         kill_and_restart()
